@@ -1,0 +1,41 @@
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { onAuthStateChange, User } from '../lib/firebase-auth';
+
+interface AuthContextType {
+  user: User | null;
+  loading: boolean;
+}
+
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  loading: true,
+});
+
+export const useAuth = () => useContext(AuthContext);
+
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    console.log('🔄 Setting up Firebase auth listener...');
+
+    // Use the RallySphere-style auth listener
+    const unsubscribe = onAuthStateChange((user) => {
+      console.log('Auth state changed:', user ? `User: ${user.email}` : 'No user');
+      setUser(user);
+      setLoading(false);
+    });
+
+    return () => {
+      console.log('🔄 Cleaning up auth listener');
+      unsubscribe();
+    };
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ user, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

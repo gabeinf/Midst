@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Midst",
+    "slug": "midst",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icons/app.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/icons/app.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.midst.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icons/app.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.midst.app"
+    },
+    "web": {
+      "favicon": "./assets/icons/app.png"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "scheme": "midst"
+  }
+}
